@@ -15,8 +15,12 @@ User.create!(email: "user@drexel.edu", password: "password", password_confirmati
 if Rails.env == "development"
   puts "creating books"
 
-  12.times do
-    Book.create!({title: Faker::Lorem.sentence(3,false,3), author: Faker::Name.name, summary: Faker::Lorem.paragraph, page_count: Faker::Number.number(2)})
+  6.times do
+    Book.create!({title: Faker::Lorem.sentence(3,false,3), author: Faker::Name.name, summary: Faker::Lorem.paragraph, page_count: Faker::Number.number(2), isbn: Faker::Number.number(13).to_s, tag_list: 'fiction' })
+  end
+
+  6.times do
+    Book.create!({title: Faker::Lorem.sentence(3,false,3), author: Faker::Name.name, summary: Faker::Lorem.paragraph, page_count: Faker::Number.number(2), isbn: Faker::Number.number(13).to_s, tag_list: 'non-fiction' })
   end
 
 end

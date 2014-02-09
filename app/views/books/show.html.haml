@@ -9,6 +9,13 @@
       %em
         = @book.page_count
         pages
+    %p
+      %strong ISBN #
+      = @book.isbn
+
+    %p
+      %strong Tags
+      = @book.tag_list
 
     - if is_user_admin?
       = link_to 'Edit', edit_book_path(@book)
