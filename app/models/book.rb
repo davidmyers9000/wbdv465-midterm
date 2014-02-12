@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
-	has_many :lists
-	has_many :users, through: :lists
+  
+	has_many :list_books
+	has_many :lists, through: :list_books
 
   acts_as_taggable_on :tag
 

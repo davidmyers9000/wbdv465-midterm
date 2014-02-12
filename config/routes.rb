@@ -1,9 +1,16 @@
 Wbdv465Midterm::Application.routes.draw do
-  resources :books
-  resources :lists
+  
+  resources :lists do
+    resources :books, only: [:new, :create, :destroy], controller: "list_books"
+  end
 
   resources :sessions,   only: [:create]
-  resources :users
+
+  resources :users do
+    resources :lists, controller: "users/lists"
+  end
+  
+  resources :books
 
   get     "tags/:tag"    => "books#index",      as: :tag
   get     "signup"       => "users#new",        as: "signup"

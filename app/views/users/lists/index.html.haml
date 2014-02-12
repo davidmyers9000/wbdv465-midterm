@@ -1,0 +1,16 @@
+%h1= "Reading lists for #{@user.email}"
+
+- if @lists.length < 1
+	%p You have no lists, create one!
+
+- @lists.each do |list|
+	%h2= link_to list.title, [@user, list]
+	%h4= list.description
+	%p
+		%b= link_to 'Edit', edit_user_list_path(@user, list)
+		%br
+		%b= link_to 'Destroy', [@user, list], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New List', new_user_list_path(@user), class: "btn btn-primary"

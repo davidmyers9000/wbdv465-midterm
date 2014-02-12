@@ -4,7 +4,7 @@ class CreateLists < ActiveRecord::Migration
       t.references :book, index: true
       t.references :user, index: true
       t.string     :title
-      t.string     :status
+      t.string     :description
 
       t.timestamps
     end

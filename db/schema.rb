@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140209223352) do
+ActiveRecord::Schema.define(version: 20140212042410) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -23,11 +23,21 @@ ActiveRecord::Schema.define(version: 20140209223352) do
     t.string   "isbn"
   end
 
+  create_table "list_books", force: true do |t|
+    t.integer  "list_id"
+    t.integer  "book_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "list_books", ["book_id"], name: "index_list_books_on_book_id"
+  add_index "list_books", ["list_id"], name: "index_list_books_on_list_id"
+
   create_table "lists", force: true do |t|
     t.integer  "book_id"
     t.integer  "user_id"
     t.string   "title"
-    t.string   "status"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

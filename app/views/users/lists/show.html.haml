@@ -1,0 +1,23 @@
+%h2= @list.title
+%h4= @list.description
+%p= link_to 'Back', user_lists_path
+
+%h4 Reading list
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Book Title
+      %th Status
+      %th Rating
+
+  %tbody
+    - @list.list_books.each do |book|
+      %tr
+        %td= book.title
+        %td
+        %td
+
+// add a book to list
+- if current_user
+  = link_to "Manage Book List", new_list_book_path(@list), class: "btn btn-primary"

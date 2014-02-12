@@ -1,0 +1,16 @@
+%h2= "Manage Books for #{@list.title}"
+
+.row
+  .col-md-4
+    = form_tag list_books_path, method: :post do
+
+      = hidden_field_tag "list[book_ids][]", nil
+      - @books.each do |book|
+        = label_tag dom_id(book) do
+          = check_box_tag "list[book_ids][]", book.id, @list.book_ids.include?(book.id), id: dom_id(book)
+          = book.title
+        %br
+
+      .actions
+        = submit_tag "Update Books", class: "btn btn-primary"
+        = link_to "Back", user_list_path(@list.user, @list)
