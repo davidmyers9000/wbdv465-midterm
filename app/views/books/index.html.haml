@@ -5,6 +5,7 @@
     %tr
       %th Title
       %th Author
+      %th ISBN
       %th Page count
       - if is_user_admin?
         %th
@@ -15,6 +16,7 @@
       %tr
         %td= link_to book.title, book
         %td= book.author
+        %td= book.isbn
         %td= book.page_count
         - if is_user_admin?
           %td= link_to 'Edit', edit_book_path(book)
