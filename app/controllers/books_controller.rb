@@ -4,6 +4,7 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.all
+    @genres = Book.genres
   end
 
   def show
@@ -49,6 +50,6 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:title, :author, :summary, :page_count)
+      params.require(:book).permit(:title, :author, :summary, :page_count, :isbn, :genre_list)
     end
 end

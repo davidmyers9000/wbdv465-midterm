@@ -23,6 +23,9 @@
       .field
         = f.label :summary
         = f.text_area :summary, class: "form-control"
+      .field
+        = f.label :genre_list, "Genres (separarted by comma)"
+        = f.text_area :genre_list, class: "form-control"
       .actions
         = f.submit 'Save', class: "btn btn-primary"
         = link_to 'Back', root_path, class: "btn btn-link"

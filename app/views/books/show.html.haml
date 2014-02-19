@@ -13,6 +13,12 @@
         = @book.page_count
         pages
 
+    %h4 Genres
+    %ul.unstyled
+      - @book.genre_list.each do |genre|
+        %li= link_to genre, genre_path(genre)
+
+    %br
     - if is_user_admin?
       = link_to 'Edit', edit_book_path(@book)
       \|
