@@ -7,6 +7,10 @@ class BooksController < ApplicationController
   end
 
   def show
+    if current_user
+      @user_book = UserBook.where(user: current_user, book: @book).first
+      @user_book ||= UserBook.new(user: current_user)
+    end
   end
 
   def new

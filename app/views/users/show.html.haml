@@ -5,3 +5,32 @@
 - if is_user_admin?
   \|
   = link_to 'Back', users_path
+
+%h3= "Book List"
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th Author
+      %th ISBN
+      %th Status
+      - if is_users_list?
+        %th
+  %tbody
+    - @books.each do |book|
+
+      %tr
+        %td= link_to book.title, book.book
+        %td= book.author
+        %td= book.isbn
+        - if is_users_list?
+          %td
+            = form_for book, url: user_book_path(@user, book.book) do |f|
+              = f.select :status, UserBook::STATUSES
+              = f.submit "Update", class: "btn btn-primary btn-sm"
+          %td
+            = link_to "Remove From List", user_book_path(current_user, book.book), method: :delete, confirm: "Are you sure?", class: "btn btn-danger btn-sm"
+        - else
+          %td= book.status
+
