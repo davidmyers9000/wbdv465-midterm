@@ -12,6 +12,8 @@ class BooksController < ApplicationController
       @user_book = UserBook.where(user: current_user, book: @book).first
       @user_book ||= UserBook.new(user: current_user)
     end
+
+    @reviews = @book.reviews.limit(5)
   end
 
   def new

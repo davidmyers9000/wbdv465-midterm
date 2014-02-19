@@ -1,7 +1,11 @@
 %h2= @user.email
 %h3= @user.role
 
-= link_to 'Edit', edit_user_path(@user)
+= link_to "Reviews by User", user_reviews_path(@user)
+%br
+
+- if can_manage_user?
+  = link_to 'Edit', edit_user_path(@user)
 - if is_user_admin?
   \|
   = link_to 'Back', users_path

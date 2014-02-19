@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :user_books
   has_many :books, through: :user_books
+  has_many :reviews, foreign_key: :created_by_id
 
   ROLES = ["admin", "member"]
 

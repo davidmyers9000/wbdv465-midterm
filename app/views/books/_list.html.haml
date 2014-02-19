@@ -8,6 +8,7 @@
           %th ISBN
           %th Page count
           %th Users
+          %th Avg. Rating
           - if is_user_admin?
             %th
             %th
@@ -20,6 +21,7 @@
             %td= book.isbn
             %td= book.page_count
             %td= book.user_books.size
+            %td= book.rating
             - if is_user_admin?
               %td= link_to 'Edit', edit_book_path(book)
               %td= link_to 'Destroy', book, :method => :delete, :data => { :confirm => 'Are you sure?' }
