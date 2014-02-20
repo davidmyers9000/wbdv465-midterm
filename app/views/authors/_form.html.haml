@@ -1,0 +1,19 @@
+.row
+  .col-md-4
+    = form_for @author do |f|
+      - if @author.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@author.errors.count, "error")} prohibited this author from being saved:"
+          %ul
+            - @author.errors.full_messages.each do |msg|
+              %li= msg
+
+      .field
+        = f.label :name
+        = f.text_field :name, class: "form-control"
+      .field
+        = f.label :bio
+        = f.text_area :bio, class: "form-control", rows: 5
+      .actions
+        = f.submit 'Save', class: "btn btn-primary"
+        = link_to 'Back', authors_path, class: "btn btn-link"

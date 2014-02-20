@@ -1,0 +1,17 @@
+.row
+  .col-md-9
+    %h2= @author.name
+    %p= @author.bio
+
+%h4 Books
+
+- if @books.size > 0
+  = render "books/list"
+- else
+  %p
+    %em This author doesn't have any books yet.
+
+- if is_user_admin?
+  = link_to 'Edit', edit_author_path(@author)
+  \|
+= link_to 'Back', authors_path

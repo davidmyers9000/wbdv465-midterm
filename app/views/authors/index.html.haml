@@ -1,0 +1,22 @@
+%h2 Authors
+
+- if is_user_admin?
+  %br
+  = link_to 'New Author', new_author_path, class: "btn btn-primary"
+
+
+.row
+  .col-md-8
+
+    - @authors.each do |author|
+
+      %article
+        %h3= link_to author.name, author
+        %h4= pluralize author.books.size, "Book"
+        %p= author.bio
+
+        - if is_user_admin?
+          %td= link_to 'Edit', edit_author_path(author)
+          \|
+          %td= link_to 'Delete', author, :method => :delete, :data => { :confirm => 'Are you sure?' }
+

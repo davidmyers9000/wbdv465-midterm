@@ -1,6 +1,6 @@
 Wbdv465Midterm::Application.routes.draw do
 
-
+  resources :authors
   resources :books do
     resources :reviews, controller: "books/reviews"
   end

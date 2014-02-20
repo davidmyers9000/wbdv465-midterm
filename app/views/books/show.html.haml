@@ -4,7 +4,7 @@
   .col-md-3
     %h4
       by
-      = @book.author
+      = link_to @book.author.name, @book.author
     %p
       %strong isbn:
       %em= @book.isbn
