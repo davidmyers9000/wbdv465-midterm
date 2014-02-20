@@ -9,7 +9,7 @@ class AuthorsController < ApplicationController
   def show
     @books    = @author.books
     @genres   = @books.genres
-    @reviews  = @author.reviews.limit(3)
+    @reviews  = @author.reviews.limit(2)
   end
 
   def new
@@ -48,6 +48,6 @@ class AuthorsController < ApplicationController
     end
 
     def author_params
-      params.require(:author).permit(:name, :bio)
+      params.require(:author).permit(:name, :bio, :picture)
     end
 end

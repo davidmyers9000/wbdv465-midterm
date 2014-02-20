@@ -4,6 +4,7 @@ gem 'rails', '4.0.2'
 gem 'sqlite3'
 
 gem 'acts-as-taggable-on'
+gem 'paperclip'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'

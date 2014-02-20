@@ -1,12 +1,22 @@
 %h2= @author.name
 
 .row
+  .col-md-3
+    = image_tag @author.picture.url(:small), width: 210
+
+    - if is_user_admin?
+      %br
+      %br
+      = link_to 'Edit', edit_author_path(@author)
+      \|
+      = link_to 'Back', authors_path
+
   .col-md-4
     %h4 Biography
     %p= @author.bio
 
-  .col-md-8
-    %h4 Reviews
+  .col-md-5
+    %h4= "Reviews (#{@author.reviews.size} total)"
     - if @reviews.size > 0
       = render "reviews/list", reviews: @reviews
     - else
@@ -26,7 +36,4 @@
   %p
     %em This author doesn't have any books yet.
 
-- if is_user_admin?
-  = link_to 'Edit', edit_author_path(@author)
-  \|
-= link_to 'Back', authors_path
+
