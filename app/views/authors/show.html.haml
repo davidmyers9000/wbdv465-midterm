@@ -1,7 +1,22 @@
+%h2= @author.name
+
 .row
-  .col-md-9
-    %h2= @author.name
+  .col-md-4
+    %h4 Biography
     %p= @author.bio
+
+  .col-md-8
+    %h4 Reviews
+    - if @reviews.size > 0
+      = render "reviews/list", reviews: @reviews
+    - else
+      %p
+        %em No reviews yet.
+
+    %br
+    - if current_user
+      = link_to 'New Review', new_author_review_path(@author), class: "btn btn-primary"
+    = link_to 'See All Reviews', author_reviews_path(@author), class: "btn btn-link"
 
 %h4 Books
 

@@ -7,8 +7,9 @@ class AuthorsController < ApplicationController
   end
 
   def show
-    @books = @author.books
-    @genres = @books.genres
+    @books    = @author.books
+    @genres   = @books.genres
+    @reviews  = @author.reviews.limit(3)
   end
 
   def new

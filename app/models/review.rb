@@ -14,4 +14,7 @@ class Review < ActiveRecord::Base
   validates :content,     presence: true,
                           length: {maximum: 500}
 
+  scope :for_books,   ->(){where(reviewable_type: "Book")}
+  scope :for_authors, ->(){where(reviewable_type: "Author")}
+
 end

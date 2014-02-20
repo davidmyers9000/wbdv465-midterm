@@ -29,7 +29,7 @@
     %p= @book.summary
 
     %h4 Reviews
-    = render "books/reviews/list"
+    = render "reviews/list", reviews: @reviews
 
     %br
     - if current_user

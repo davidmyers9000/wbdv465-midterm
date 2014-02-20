@@ -1,0 +1,8 @@
+%h2= "All Reviews for #{@author.title}"
+
+.row
+  .col-md-8
+    = render "list"
+
+- if current_user
+  = link_to 'New Review', new_author_review_path, class: "btn btn-primary"

@@ -19,10 +19,14 @@ if Rails.env == "development"
     User.create!(email: Faker::Internet.email(Faker::Name.name), password: "password", password_confirmation: "password", role: "member")
   end
 
-  puts "creating authors"
+  puts "creating authors and reviews"
 
   6.times do
-    Author.create!({name: Faker::Name.name, bio: Faker::Lorem.paragraph})
+    author = Author.create!({name: Faker::Name.name, bio: Faker::Lorem.paragraph})
+
+    rand(0..4).times do
+      author.reviews.create({rating: rand(0..5), content: Faker::Lorem.paragraph, created_by_id: rand(2..12)})
+    end
   end
 
   puts "creating books with reviews"

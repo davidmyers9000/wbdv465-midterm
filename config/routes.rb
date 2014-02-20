@@ -1,8 +1,10 @@
 Wbdv465Midterm::Application.routes.draw do
 
-  resources :authors
+  resources :authors do
+    resources :reviews, except: :show, controller: "authors/reviews"
+  end
   resources :books do
-    resources :reviews, controller: "books/reviews"
+    resources :reviews, except: :show, controller: "books/reviews"
   end
   resources :genres,      only: [:show]
   resources :sessions,    only: [:create]

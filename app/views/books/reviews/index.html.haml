@@ -2,7 +2,7 @@
 
 .row
   .col-md-8
-    = render "list"
+    = render "reviews/list", reviews: @reviews
 
 - if current_user
   = link_to 'New Review', new_book_review_path, class: "btn btn-primary"
