@@ -1,8 +1,9 @@
 class Review < ActiveRecord::Base
-  belongs_to :book
+
+  belongs_to :reviewable, polymorphic: true
   belongs_to :created_by, class_name: :User
 
-  validates :book,        presence: true
+  validates :reviewable,  presence: true
 
   validates :created_by,  presence: true
 
