@@ -57,7 +57,7 @@ class Authors::ReviewsController < ApplicationController
     end
 
     def set_author
-      @author = Book.find(params[:author_id])
+      @author = Author.find(params[:author_id])
     end
 
     def set_review

@@ -2,6 +2,13 @@ class Book < ActiveRecord::Base
 
   acts_as_taggable_on :genres
 
+  has_attached_file :cover,
+    styles: { small: "150x150>", large: "300x300>" },
+    default_url: "/assets/missing.png"
+
+  validates_attachment :cover, allow_blank: true,
+    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+
   belongs_to :author
 
   has_many :user_books

@@ -2,6 +2,8 @@
 
 .row
   .col-md-3
+    = image_tag @book.cover.url(:small), width: 150
+
     %h4
       by
       = link_to @book.author.name, @book.author

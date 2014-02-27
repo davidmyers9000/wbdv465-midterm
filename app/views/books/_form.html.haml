@@ -1,6 +1,6 @@
 .row
   .col-md-4
-    = form_for @book do |f|
+    = form_for @book, multipart: true do |f|
       - if @book.errors.any?
         #error_explanation
           %h2= "#{pluralize(@book.errors.count, "error")} prohibited this book from being saved:"
@@ -13,7 +13,7 @@
         = f.text_field :title, class: "form-control"
       .field
         = f.label :author
-        = f.collection_select :author, Author.all, :id, :name, {}, class: "form-control"
+        = f.collection_select :author_id, Author.all, :id, :name, {}, class: "form-control"
       .field
         = f.label :isbn
         = f.number_field :isbn, class: "form-control"
@@ -26,6 +26,11 @@
       .field
         = f.label :genre_list, "Genres (separarted by comma)"
         = f.text_area :genre_list, class: "form-control"
+
+      .field
+        = f.label :cover
+        = f.file_field :cover
+
       .actions
         = f.submit 'Save', class: "btn btn-primary"
         = link_to 'Back', root_path, class: "btn btn-link"
