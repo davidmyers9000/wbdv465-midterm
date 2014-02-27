@@ -6,15 +6,65 @@
       by
       = @book.author
     %p
+      %strong isbn:
+      %em= @book.isbn
+      %br
       %em
         = @book.page_count
         pages
 
+    %h4 Genres
+    %ul.unstyled
+      - @book.genre_list.each do |genre|
+        %li= link_to genre, genre_path(genre)
+
+    %br
     - if is_user_admin?
       = link_to 'Edit', edit_book_path(@book)
       \|
     = link_to 'Back', root_path
 
   .col-md-6
+    %h4 Synopsis
     %p= @book.summary
+
+    %h4 Reviews
+    = render "books/reviews/list"
+
+    %br
+    - if current_user
+      = link_to 'New Review', new_book_review_path(@book), class: "btn btn-primary"
+    = link_to 'See All Reviews', book_reviews_path(@book), class: "btn btn-link"
+
+
+
+  .col-md-3
+    %h4 User Stats
+
+    %table.table
+      %thead
+        %tr
+          %th Will Read
+          %th Reading
+          %th Read
+      %tbody
+        %tr
+          %td= @book.user_books.to_be_read.size
+          %td= @book.user_books.reading.size
+          %td= @book.user_books.read.size
+
+    - if @user_book
+      - if @user_book.id.nil?
+        = form_for @user_book, url: user_books_path(current_user) do |f|
+          = f.hidden_field :book_id, value: @book.id
+          = f.select :status, UserBook::STATUSES, {}, class: "form-control"
+          = f.submit "Add To List", class: "btn btn-primary"
+
+      - else
+        = form_for @user_book, url: user_book_path(current_user, @book) do |f|
+          = f.select :status, UserBook::STATUSES, {}, class: "form-control"
+          .action
+            = f.submit "Update Status", class: "btn btn-primary"
+        %br
+        = link_to "Remove From Your List", user_book_path(current_user, @book), method: :delete, confirm: "Are you sure?", class: "btn btn-danger"
 

@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @books = @user.book_list
   end
 
   def new
