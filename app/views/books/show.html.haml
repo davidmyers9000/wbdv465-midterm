@@ -2,9 +2,11 @@
 
 .row
   .col-md-3
+    = image_tag @book.cover.url(:small), width: 150
+
     %h4
       by
-      = @book.author
+      = link_to @book.author.name, @book.author
     %p
       %strong isbn:
       %em= @book.isbn
@@ -29,7 +31,7 @@
     %p= @book.summary
 
     %h4 Reviews
-    = render "books/reviews/list"
+    = render "reviews/list", reviews: @reviews
 
     %br
     - if current_user

@@ -1,8 +1,9 @@
 class Review < ActiveRecord::Base
-  belongs_to :book
+
+  belongs_to :reviewable, polymorphic: true
   belongs_to :created_by, class_name: :User
 
-  validates :book,        presence: true
+  validates :reviewable,  presence: true
 
   validates :created_by,  presence: true
 
@@ -12,5 +13,8 @@ class Review < ActiveRecord::Base
 
   validates :content,     presence: true,
                           length: {maximum: 500}
+
+  scope :for_books,   ->(){where(reviewable_type: "Book")}
+  scope :for_authors, ->(){where(reviewable_type: "Author")}
 
 end
