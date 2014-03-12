@@ -4,9 +4,16 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.all
+    @genres = Book.genres
   end
 
   def show
+    if current_user
+      @user_book = UserBook.where(user: current_user, book: @book).first
+      @user_book ||= UserBook.new(user: current_user)
+    end
+
+    @reviews = @book.reviews.limit(5)
   end
 
   def new
@@ -45,6 +52,6 @@ class BooksController < ApplicationController
     end
 
     def book_params
-      params.require(:book).permit(:title, :author, :summary, :page_count)
+      params.require(:book).permit(:title, :author, :summary, :page_count, :isbn, :genre_list)
     end
 end

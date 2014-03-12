@@ -1,24 +1,6 @@
 %h2 Books
 
-%table.table.table-striped
-  %thead
-    %tr
-      %th Title
-      %th Author
-      %th Page count
-      - if is_user_admin?
-        %th
-        %th
-
-  %tbody
-    - @books.each do |book|
-      %tr
-        %td= link_to book.title, book
-        %td= book.author
-        %td= book.page_count
-        - if is_user_admin?
-          %td= link_to 'Edit', edit_book_path(book)
-          %td= link_to 'Destroy', book, :method => :delete, :data => { :confirm => 'Are you sure?' }
+= render "list"
 
 - if is_user_admin?
   %br

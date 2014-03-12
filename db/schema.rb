@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206010557) do
+ActiveRecord::Schema.define(version: 20140219220130) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -20,7 +20,49 @@ ActiveRecord::Schema.define(version: 20140206010557) do
     t.integer  "page_count"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "isbn"
   end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "book_id"
+    t.integer  "created_by_id"
+    t.integer  "rating"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reviews", ["book_id"], name: "index_reviews_on_book_id"
+  add_index "reviews", ["created_by_id"], name: "index_reviews_on_created_by_id"
+
+  create_table "taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+
+  create_table "tags", force: true do |t|
+    t.string "name"
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "user_books", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_books", ["book_id"], name: "index_user_books_on_book_id"
+  add_index "user_books", ["user_id"], name: "index_user_books_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email"
