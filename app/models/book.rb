@@ -2,9 +2,18 @@ class Book < ActiveRecord::Base
 
   acts_as_taggable_on :genres
 
+  has_attached_file :cover,
+    styles: { small: "150x150>", large: "300x300>" },
+    default_url: "/assets/missing.png"
+
+  validates_attachment :cover, allow_blank: true,
+    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+
+  belongs_to :author
+
   has_many :user_books
   has_many :users, through: :user_books
-  has_many :reviews
+  has_many :reviews, as: :reviewable
 
   validates :title,       presence: true
   validates :author,      presence: true
@@ -20,9 +29,12 @@ class Book < ActiveRecord::Base
   def rating
     return @rating if @rating
 
-    ratings   = reviews.pluck(:rating)
-    @rating   = 0.0 if ratings.size < 1
-    @rating ||= ratings.sum * 1.0 / ratings.size
+    if reviews.size > 0
+      ratings   = reviews.pluck(:rating)
+      @rating = ratings.sum * 1.0 / ratings.size
+    else
+      @rating   = 0.0
+    end
   end
 
 end

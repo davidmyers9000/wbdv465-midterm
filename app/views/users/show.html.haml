@@ -26,7 +26,7 @@
 
       %tr
         %td= link_to book.title, book.book
-        %td= book.author
+        %td= link_to book.author.name, book.author
         %td= book.isbn
         - if is_users_list?
           %td
