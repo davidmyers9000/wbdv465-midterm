@@ -24,7 +24,3 @@ group :development do
   gem 'meta_request'
   gem 'hirb'
 end
-
-group :production do
-  gem 'rails_12factor'
-end
