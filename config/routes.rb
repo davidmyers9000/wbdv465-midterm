@@ -1,5 +1,11 @@
 Wbdv465Midterm::Application.routes.draw do
   
+  get "list_books/new"
+  get "list_books/edit"
+  get "list_books/show"
+  get "list_books/destroy"
+  get "list_books/create"
+  get "list_books/index"
   resources :lists do
     resources :books, only: [:new, :create, :destroy], controller: "list_books"
   end

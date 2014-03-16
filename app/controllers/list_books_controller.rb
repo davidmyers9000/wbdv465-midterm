@@ -3,10 +3,20 @@ class ListBooksController < ApplicationController
   before_action :set_list
   before_action :set_user
   before_action :set_list_book, only: :destroy
-  # before_action :set_books
 
   def new
     @books = @list.books
+  end
+
+  def edit
+  end
+
+  def show
+  end
+
+  def destroy
+    @list_book.destroy
+    redirect_to school_course_path(@course.school, @course)
   end
 
   def create
@@ -17,11 +27,9 @@ class ListBooksController < ApplicationController
     end
   end
 
-  def destroy
-    @list_book.destroy
-    redirect_to school_course_path(@course.school, @course)
+  def index
   end
-
+  
   private
 
     def set_list
@@ -35,10 +43,6 @@ class ListBooksController < ApplicationController
     def set_user
       @user = @list.user
     end
-    
-    # def set_books
-    #   @list.books = Book.all      
-    # end
 
     def list_book_params
       params.require(:list).permit(book_ids: [])
