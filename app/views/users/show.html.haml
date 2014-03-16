@@ -7,7 +7,40 @@
   .col-md-8
     %h3= @user.role
 
-= link_to 'Edit', edit_user_path(@user)
+= link_to "Reviews by User", user_reviews_path(@user)
+%br
+
+- if can_manage_user?
+  = link_to 'Edit', edit_user_path(@user)
 - if is_user_admin?
   \|
   = link_to 'Back', users_path
+
+%h3= "Book List"
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Title
+      %th Author
+      %th ISBN
+      %th Status
+      - if is_users_list?
+        %th
+  %tbody
+    - @books.each do |book|
+
+      %tr
+        %td= link_to book.title, book.book
+        %td= link_to book.author.name, book.author
+        %td= book.isbn
+        - if is_users_list?
+          %td
+            = form_for book, url: user_book_path(@user, book.book) do |f|
+              = f.select :status, UserBook::STATUSES
+              = f.submit "Update", class: "btn btn-primary btn-sm"
+          %td
+            = link_to "Remove From List", user_book_path(current_user, book.book), method: :delete, confirm: "Are you sure?", class: "btn btn-danger btn-sm"
+        - else
+          %td= book.status
+

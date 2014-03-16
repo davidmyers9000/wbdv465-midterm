@@ -1,0 +1,16 @@
+%p
+  %strong
+    by
+    = link_to review.created_by.email, user_reviews_path(review.created_by)
+    = "(#{review.rating} of 5)"
+  %br
+  = review.content
+
+  - if can_manage_review?(review)
+
+    %br
+    = link_to "Edit", send("edit_#{review.reviewable_type.downcase}_review_path", review.reviewable, review)
+    \|
+    = link_to "Delete", send("#{review.reviewable_type.downcase}_review_path", review.reviewable, review), method: :delete, confirm: "Are you sure?"
+
+  %hr

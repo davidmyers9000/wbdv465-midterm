@@ -1,0 +1,33 @@
+.row
+  .col-md-9
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Title
+          %th Author
+          %th ISBN
+          %th Page count
+          %th Users
+          %th Avg. Rating
+          - if is_user_admin?
+            %th
+            %th
+
+      %tbody
+        - @books.each do |book|
+          %tr
+            %td= link_to book.title, book
+            %td= link_to book.author.name, book.author
+            %td= book.isbn
+            %td= book.page_count
+            %td= book.user_books.size
+            %td= book.rating.round(1)
+            - if is_user_admin?
+              %td= link_to 'Edit', edit_book_path(book)
+              %td= link_to 'Destroy', book, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .col-md-3
+    %h3 Genres
+    %ul.unstyled
+      %li= link_to "All", books_path
+      - @genres.each do |genre|
+        %li= link_to genre.name, genre_path(genre.name.downcase)

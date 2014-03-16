@@ -1,0 +1,16 @@
+%h3= "Reviews written by #{@user.email}"
+
+
+%h4 For Books
+- if @book_reviews.size > 0
+  = render "reviews/list", reviews: @book_reviews
+- else
+  %p
+    %em No book reviews.
+
+%h4 For Authors
+- if @author_reviews.size > 0
+  = render "reviews/list", reviews: @author_reviews
+- else
+  %p
+    %em No book reviews.

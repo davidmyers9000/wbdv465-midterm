@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   
   has_secure_password
 
+  has_many :user_books
+  has_many :books, through: :user_books
+  has_many :reviews, foreign_key: :created_by_id
+
   ROLES = ["admin", "member"]
 
   validates :email,     presence: true,
@@ -19,6 +23,10 @@ class User < ActiveRecord::Base
                         inclusion: {in: ROLES}
 
   after_initialize :_set_default_role
+
+  def book_list
+    user_books
+  end
 
   private
 

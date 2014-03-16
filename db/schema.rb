@@ -11,11 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212042410) do
+
+ActiveRecord::Schema.define(version: 20140227155344) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "authors", force: true do |t|
+    t.string   "name"
+    t.text     "bio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+  end
 
   create_table "books", force: true do |t|
     t.string   "title"
-    t.string   "author"
     t.text     "summary"
     t.integer  "page_count"
     t.datetime "created_at"
@@ -44,6 +58,27 @@ ActiveRecord::Schema.define(version: 20140212042410) do
 
   add_index "lists", ["book_id"], name: "index_lists_on_book_id"
   add_index "lists", ["user_id"], name: "index_lists_on_user_id"
+    t.integer  "isbn",               limit: 8
+    t.integer  "author_id"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
+  end
+
+  add_index "books", ["author_id"], name: "index_books_on_author_id", using: :btree
+
+  create_table "reviews", force: true do |t|
+    t.integer  "created_by_id"
+    t.integer  "rating"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reviewable_id"
+    t.string   "reviewable_type"
+  end
+
+  add_index "reviews", ["created_by_id"], name: "index_reviews_on_created_by_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -55,13 +90,24 @@ ActiveRecord::Schema.define(version: 20140212042410) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "user_books", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_books", ["book_id"], name: "index_user_books_on_book_id", using: :btree
+  add_index "user_books", ["user_id"], name: "index_user_books_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email"
